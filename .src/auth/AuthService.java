@@ -22,8 +22,8 @@ public User loginOrSignUp() {
 }
 
 private User login() {
-    System.out.print("Enter username: ");
-    String username = scanner.nextLine();
+    System.out.print("Enter your full name: ");
+    String fullName = scanner.nextLine();
     System.out.print("Enter password: ");
     String password = scanner.nextLine();
 
@@ -32,8 +32,8 @@ private User login() {
 }
 
 private User signUp() {
-    System.out.print("Choose a username: ");
-    String username = scanner.nextLine();
+    System.out.print("Enter your full name: ");
+    String fullName = scanner.nextLine();
     System.out.print("Choose a password: ");
     String password = scanner.nextLine();
 
