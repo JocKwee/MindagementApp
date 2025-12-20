@@ -29,43 +29,43 @@ public class Dashboard {
 
             switch (choice) {
                 case 1 -> showPersonalInfo();
-                case 2 -> showDoctors();
-                case 3 -> showMedications();
-                case 4 -> showMedicalHistory();
-                case 5 -> showReminders();
-                case 6 -> showCalendar();
+                case 2 -> manageDoctors();
+                case 3 -> manageMedications();
+                case 4 -> manageMedicalHistory();
+                case 5 -> manageReminders();
+                case 6 -> manageCalendar();
                 case 7 -> {
                     System.out.println("Logging out...");
                     return;
                 }
             }
         }
+    }
 
-        private void showPersonalInfo() {
+    private void showPersonalInfo() {
         System.out.println("\n--- Personal Info ---");
         System.out.println("Full Name: " + user.fullName);
         System.out.println("Email: " + user.email);
         System.out.println("Age: " + user.age); 
-        }
+    }
 
-        private void manageDoctors() {
-            System.out.println("--- Past Doctors ---"); // not done
-        }
+    private void manageDoctors() {
+        System.out.println("--- Past Doctors ---"); // not done
+    }
 
-        private void manageMedications() {
-            System.out.println("\n--- Medications ---"); // not done
-        }
+    private void manageMedications() {
+        System.out.println("\n--- Medications ---"); // not done
+    }
 
-        private void manageMedicalHistory() {
-            System.out.println("\n--- Medical History ---"); // not done
-        }
+    private void manageMedicalHistory() {
+        System.out.println("\n--- Medical History ---"); // not done
+    }
 
-        private void manageReminders() {
-            System.out.println("\n--- Reminders ---"); // not done
-        }
+    private void manageReminders() {
+        System.out.println("\n--- Reminders ---"); // not done
+    }
 
-        private void manageCalendar() {
-            System.out.println("\n--- Calendar ---"); // not done
-        }
+    private void manageCalendar() {
+        System.out.println("\n--- Calendar ---"); // not done
     }
 }

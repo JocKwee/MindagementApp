@@ -21,7 +21,7 @@ public User loginOrSignUp() {
     }
 }
 
-private User login() {
+private User login() {      // fix this no way
     System.out.print("Enter your full name: ");
     String fullName = scanner.nextLine();
     System.out.print("Enter password: ");
