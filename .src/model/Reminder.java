@@ -1,12 +1,6 @@
 package model;
 
-import database.Database;
-
 public class Reminder {
-    public String message;
-    public String time;
-    public Reminder(String message, String time) {
-        this.message = message;
-        this.time = time;
-    } // idk
+    public String text;
+    public String dateTime;
 }
