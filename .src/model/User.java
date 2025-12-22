@@ -6,7 +6,7 @@ import java.util.List;
 public class User {
     public String fullName;   
     public String email;
-    public int age;
+    public String birthday;
     public String gender;
     public String passwordHash;  
 

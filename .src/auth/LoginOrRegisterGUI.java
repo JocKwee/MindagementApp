@@ -53,7 +53,7 @@ public class LoginOrRegisterGUI extends JFrame {
         JTextField nameField = new JTextField();
         JPasswordField passField = new JPasswordField();
         JTextField emailField = new JTextField();
-        JTextField ageField = new JTextField();
+        JTextField birthdayField = new JTextField();
         String[] genders = {"M", "F", "Other"};
         JComboBox<String> genderBox = new JComboBox<>(genders);
 
@@ -61,7 +61,7 @@ public class LoginOrRegisterGUI extends JFrame {
                 "Full Name:", nameField,
                 "Password:", passField,
                 "Email:", emailField,
-                "Age:", ageField,
+                "Birthday:", birthdayField,
                 "Gender:", genderBox
         };
 
@@ -70,7 +70,7 @@ public class LoginOrRegisterGUI extends JFrame {
             User user = new User();
             user.fullName = nameField.getText();
             user.email = emailField.getText();
-            user.age = Integer.parseInt(ageField.getText());
+            user.birthday = birthdayField.getText();
             user.gender = (String) genderBox.getSelectedItem();
             String password = new String(passField.getPassword());
 

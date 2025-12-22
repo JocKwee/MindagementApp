@@ -69,7 +69,7 @@ public class DashboardGUI extends JFrame {
         info.setEditable(false);
         info.append("Full Name: " + user.fullName + "\n");
         info.append("Email: " + user.email + "\n");
-        info.append("Age: " + user.age + "\n");
+        info.append("Birthday: " + user.birthday + "\n");
         info.append("Gender: " + user.gender + "\n");
         mainPanel.add(new JScrollPane(info), BorderLayout.CENTER);
         mainPanel.revalidate();
