@@ -1,5 +1,3 @@
-package app;
-
 import auth.LoginOrRegisterGUI;
 
 import javax.swing.*;
