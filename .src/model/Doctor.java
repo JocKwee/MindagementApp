@@ -1,5 +1,7 @@
 package model;
 
+import database.Database;
+
 public class Doctor {
     public String name;
     public String specialty;

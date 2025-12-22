@@ -1,5 +1,7 @@
 package model;
 
+import database.Database;
+
 public class Reminder {
     public String message;
     public String time;

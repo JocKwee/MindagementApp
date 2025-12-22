@@ -1,5 +1,7 @@
 package model;
 
+import database.Database;
+
 public class CalendarEvent {
     public String title;
     public String date;

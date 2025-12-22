@@ -15,7 +15,7 @@ public class Dashboard {
         while (true) {
             System.out.println("\n=== DASHBOARD ===");
             System.out.println("Welcome, " + user.fullName + "!");
-            System.out.println("1. Personal Info");
+            System.out.println("1. Account Info");
             System.out.println("2. Past Doctors");
             System.out.println("3. Medications");
             System.out.println("4. Medical History");

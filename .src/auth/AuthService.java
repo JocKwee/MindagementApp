@@ -1,43 +1,74 @@
 package auth;
 
-import java.util.Scanner; 
+import database.Database;
 import model.User;
 
+import java.sql.*;
+
 public class AuthService {
-    private Scanner scanner = new Scanner(System.in);
 
-public User loginOrSignUp() {
-    System.out.println("Welcome to Mindagement");
-    System.out.println("1. Login");
-    System.out.println("2. Sign Up");
-    System.out.print("Choose an option: ");
-    int choice = scanner.nextInt();
-    scanner.nextLine();
+    public static boolean register(User user, String password) {
+        String hashed = PasswordUtil.hash(password);
+        String sql = "INSERT INTO users (full_name, password_hash, email, age, gender) VALUES (?, ?, ?, ?, ?)";
 
-    if (choice == 1) {
-        return login();
-    } else {
-        return signUp();
+        try (Connection c = Database.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setString(1, user.fullName);
+            ps.setString(2, hashed);
+            ps.setString(3, user.email);
+            ps.setInt(4, user.age);
+            ps.setString(5, user.gender);
+
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            return false; 
+        }
     }
-}
 
-private User login() {      // fix this no way
-    System.out.print("Enter your full name: ");
-    String fullName = scanner.nextLine();
-    System.out.print("Enter password: ");
-    String password = scanner.nextLine();
+    public static boolean login(String fullName, String password) {
+        String sql = "SELECT password_hash FROM users WHERE full_name = ?";
 
-    System.out.println("Login successful!");
-    return new User();
-}
+        try (Connection c = Database.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
 
-private User signUp() {
-    System.out.print("Enter your full name: ");
-    String fullName = scanner.nextLine();
-    System.out.print("Choose a password: ");
-    String password = scanner.nextLine();
+            ps.setString(1, fullName);
+            ResultSet rs = ps.executeQuery();
 
-    System.out.println("Sign up successful!");
-    return new User();
-}
+            if (rs.next()) {
+                return PasswordUtil.verify(password, rs.getString("password_hash"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static User getUser(String fullName) {
+        String sql = "SELECT * FROM users WHERE full_name = ?";
+
+        try (Connection c = Database.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setString(1, fullName);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                User user = new User();
+                user.fullName = fullName;
+                user.email = rs.getString("email");
+                user.age = rs.getInt("age");
+                user.gender = rs.getString("gender");
+                user.passwordHash = rs.getString("password_hash");
+                return user;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
