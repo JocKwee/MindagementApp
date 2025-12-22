@@ -42,7 +42,7 @@ public class LoginOrRegisterGUI extends JFrame {
                 User user = AuthService.getUser(fullName);
                 JOptionPane.showMessageDialog(this, "Welcome, " + fullName + "!");
                 new DashboardGUI(user);
-                dispose(); // close login window
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid credentials.");
             }

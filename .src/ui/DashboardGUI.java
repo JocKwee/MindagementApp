@@ -18,12 +18,10 @@ public class DashboardGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Top welcome label
-        JLabel welcomeLabel = new JLabel("Welcome, " + user.fullName + "!", SwingConstants.CENTER);
+        JLabel welcomeLabel = new JLabel("Welcome, " + user.fullName, SwingConstants.CENTER);
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
         add(welcomeLabel, BorderLayout.NORTH);
 
-        // Left panel with buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(0, 1, 5, 5));
 
@@ -47,12 +45,10 @@ public class DashboardGUI extends JFrame {
 
         add(buttonPanel, BorderLayout.WEST);
 
-        // Main panel for content
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         add(mainPanel, BorderLayout.CENTER);
 
-        // Button actions
         btnAccount.addActionListener(e -> showAccountInfo());
         btnMedications.addActionListener(e -> showMedications());
         btnMedicalHistory.addActionListener(e -> showMedicalHistory());
@@ -61,8 +57,7 @@ public class DashboardGUI extends JFrame {
         btnCalendar.addActionListener(e -> showCalendar());
         btnReminders.addActionListener(e -> showReminders());
         btnLogout.addActionListener(e -> {
-            dispose(); // close dashboard
-            // optionally return to login page
+            dispose(); 
         });
 
         setVisible(true);
@@ -98,86 +93,93 @@ public class DashboardGUI extends JFrame {
         mainPanel.repaint();
     }
 
-    private void showMedicalHistory() {
-        mainPanel.removeAll();
-        JTextArea info = new JTextArea();
-        info.setEditable(false);
-        List<MedicalHistory> history = user.medicalHistory;
-        if (history == null || history.isEmpty()) {
-            info.append("No medical history recorded.\n");
-        } else {
-            for (MedicalHistory mh : history) {
-                info.append(mh.condition + " - " + mh.notes + "\n");
-            }
+private void showMedicalHistory() {
+    mainPanel.removeAll();
+    JTextArea info = new JTextArea();
+    info.setEditable(false);
+    List<MedicalHistory> history = user.medicalHistory;
+    if (history == null || history.isEmpty()) {
+        info.append("No medical history recorded.\n");
+    } else {
+        for (MedicalHistory mh : history) {
+            info.append("Condition: " + mh.condition + "\n");
+            info.append("Genetic: " + (mh.genetic ? "Yes" : "No") + "\n");
+            info.append("Diagnosis Date: " + mh.diagnosisDate + "\n");
+            info.append("Treatment: " + mh.treatment + "\n");
+            info.append("Notes: " + mh.notes + "\n");
+            info.append("---------------------\n");
         }
-        mainPanel.add(new JScrollPane(info), BorderLayout.CENTER);
-        mainPanel.revalidate();
-        mainPanel.repaint();
     }
+    mainPanel.add(new JScrollPane(info), BorderLayout.CENTER);
+    mainPanel.revalidate();
+    mainPanel.repaint();
+}
 
-    private void showDoctors() {
-        mainPanel.removeAll();
-        JTextArea info = new JTextArea();
-        info.setEditable(false);
-        List<Doctor> doctors = user.doctors;
-        if (doctors == null || doctors.isEmpty()) {
-            info.append("No doctors added yet.\n");
-        } else {
-            for (Doctor d : doctors) {
-                info.append(d.name + " - " + d.specialty + "\n");
-            }
+
+private void showDoctors() {
+    mainPanel.removeAll();
+    JTextArea info = new JTextArea();
+    info.setEditable(false);
+    List<Doctor> doctors = user.doctors;
+    if (doctors == null || doctors.isEmpty()) {
+        info.append("No doctors added yet.\n");
+    } else {
+        for (Doctor d : doctors) {
+            info.append("Name: " + d.name + "\n");
+            info.append("Specialty: " + d.specialty + "\n");
+            info.append("Contact: " + d.contactInfo + "\n");
+            info.append("---------------------\n");
         }
-        mainPanel.add(new JScrollPane(info), BorderLayout.CENTER);
-        mainPanel.revalidate();
-        mainPanel.repaint();
     }
+    mainPanel.add(new JScrollPane(info), BorderLayout.CENTER);
+    mainPanel.revalidate();
+    mainPanel.repaint();
+}
 
-    private void showQnA() {
-        mainPanel.removeAll();
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1, 5, 5));
+private void showQnA() {
+    mainPanel.removeAll();
+    JPanel panel = new JPanel();
+    panel.setLayout(new GridLayout(2, 1, 5, 5));
 
-        JButton diseaseBtn = new JButton("Request Disease Info");
-        JButton medicationBtn = new JButton("Request Medication Advice");
+    JButton openFormBtn = new JButton("Submit Q&A / Requests");
 
-        diseaseBtn.addActionListener(e -> {
-            String disease = JOptionPane.showInputDialog(this, "Enter disease name:");
-            if (disease != null && !disease.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Request sent for disease: " + disease);
-            }
-        });
-
-        medicationBtn.addActionListener(e -> {
-            String med = JOptionPane.showInputDialog(this, "Enter medication name:");
-            if (med != null && !med.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Request sent for medication: " + med);
-            }
-        });
-
-        panel.add(diseaseBtn);
-        panel.add(medicationBtn);
-
-        mainPanel.add(panel, BorderLayout.CENTER);
-        mainPanel.revalidate();
-        mainPanel.repaint();
-    }
-
-    private void showCalendar() {
-        mainPanel.removeAll();
-        JTextArea info = new JTextArea();
-        info.setEditable(false);
-        List<CalendarEvent> events = user.calendarEvents;
-        if (events == null || events.isEmpty()) {
-            info.append("No calendar events.\n");
-        } else {
-            for (CalendarEvent e : events) {
-                info.append(e.date + " - " + e.title + "\n");
-            }
+    openFormBtn.addActionListener(e -> {
+        try {
+            java.awt.Desktop.getDesktop().browse(new java.net.URI(
+                "https://docs.google.com/forms/d/e/1FAIpQLSfD_oeOQ0KFKUSl3MhmD7lzxCNxfofoMc7YDliDH8JSJFirdg/viewform?usp=publish-editor"
+            ));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Unable to open the link.");
+            ex.printStackTrace();
         }
-        mainPanel.add(new JScrollPane(info), BorderLayout.CENTER);
-        mainPanel.revalidate();
-        mainPanel.repaint();
+    });
+
+    panel.add(openFormBtn);
+    mainPanel.add(panel, BorderLayout.CENTER);
+    mainPanel.revalidate();
+    mainPanel.repaint();
+}
+
+private void showCalendar() {
+    mainPanel.removeAll();
+    JTextArea info = new JTextArea();
+    info.setEditable(false);
+    List<CalendarEvent> events = user.calendarEvents;
+    if (events == null || events.isEmpty()) {
+        info.append("No calendar events.\n");
+    } else {
+        for (CalendarEvent e : events) {
+            info.append("Date: " + e.date + "\n");
+            info.append("Time: " + e.time + "\n");
+            info.append("Title: " + e.title + "\n");
+            info.append("Description: " + e.description + "\n");
+            info.append("---------------------\n");
+        }
     }
+    mainPanel.add(new JScrollPane(info), BorderLayout.CENTER);
+    mainPanel.revalidate();
+    mainPanel.repaint();
+}
 
     private void showReminders() {
         mainPanel.removeAll();
