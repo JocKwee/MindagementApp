@@ -1,5 +1,6 @@
-import auth.LoginOrRegisterGUI;
+package app;
 
+import auth.LoginOrRegisterGUI;
 import javax.swing.*;
 
 public class App {
