@@ -103,10 +103,10 @@ private void showMedicalHistory() {
     } else {
         for (MedicalHistory mh : history) {
             info.append("Condition: " + mh.condition + "\n");
-            info.append("Genetic: " + (mh.genetic ? "Yes" : "No") + "\n");
             info.append("Diagnosis Date: " + mh.diagnosisDate + "\n");
             info.append("Treatment: " + mh.treatment + "\n");
             info.append("Notes: " + mh.notes + "\n");
+            info.append("Cured: " + (mh.cured ? "Yes" : "No") + "\n");
             info.append("---------------------\n");
         }
     }

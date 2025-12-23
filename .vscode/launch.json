@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LoginOrRegisterGUI",
+            "request": "launch",
+            "mainClass": "auth.LoginOrRegisterGUI",
+            "projectName": "MindagementApp_a3053b63"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "App",

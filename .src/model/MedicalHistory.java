@@ -5,7 +5,7 @@ public class MedicalHistory {
     public String notes;
     public String diagnosisDate;
     public String treatment;
-    public boolean genetic;
+    public boolean cured;
 }
 
 // condition, genetic, diagnosisDate, treatment, notes
